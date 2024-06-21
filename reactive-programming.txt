@@ -1,0 +1,85 @@
+Reactive Programming
+
+URL:https://github.com/dilipsundarraj1/reactive-spring-webflux/tree/final
+
+=============================
+3. Why Reactive Programming?
+=============================
+----------PULL
+A man walks into a grocery store and asks the shopkeeper if he has any eggs. "Yes," says the shopkeeper. 
+"May I have some?" asks the man. And the shopkeeper gives the man some eggs. "Do you have any more?" asks the man. 
+"Yes," says the shopkeeper. "May I have some?" asks the man. And the shopkeeper gives the man some eggs. 
+"Do you have any more?" asks the man. "No," says the shopkeeper. The man leaves.
+
+That's pull-based. The man keep "pulling" eggs from the shopkeeper until there were none left.
+
+--------PUSH
+A man walks into a grocery store and asks the shopkeeper if he can delivery any eggs and, if so,
+can he deliver then whenever he can get them. "Yes," says the shopkeeper. The man leaves. In a few days some
+eggs arrive. A few more days later some eggs arrive. Then the man calls the shopkeeper and asks the for the
+deliveries to stop. No more eggs arrive.
+
+That's push-based. The man doesn't wait for the shopkeeper to give him eggs. The man goes about doing something 
+else and the shopkeeper "pushes" the eggs to the man.
+
+Non-Blocking or Reactive == Not Blocking the thread and Async
+
+Spring WebFlux = Netty + Project Reactor
+
+Reactive elemets:Publisher, Subscriber, Subscription and Processor
+
+Project Reactor:
+Mono and Flux
+
+Flux is a reactive type to represent 0 to N elemets
+
+Mono is a reactive type tor epresent 0 to 1 elemnts
+
+operator (map, filer, ...) = used to transform the data
+
+concat() and concatWith() - used to combine to Reactive streams (Flux + Flux, Mono + Mono and etc...)
+
+========================
+Spring WebFlux
+========================
+Netty + project reactor
+
+
+======================
+bean validation
+======================
+validate if the json has these fields
+@Valid in the method in the post request to trigger the bean validation
+
+@NotBlank(message = "movieInfo.name must be present")
+private String name;
+
+@ControllerAdvice - used for error global handling and customize errors sent back to client.Custom error handler
+
+===========================
+Functional Web programming in Spring
+===========================
+
+-WebClient to call reactive services via retrieve() or exchange()
+
+==========================
+Wiremock
+==========================
+-http mock library to test communication between services
+-easy to simulate 2xx,4xx and 5xx responses
+
+=========================
+Handle failed http request
+=========================
+-retry N number of times
+-retry N number of times with backoff timeout
+
+========================
+Server Sent Events
+========================
+-events are sent back to client as soon as they are available, so one by one and not when all of them are available
+-continiously inform the client with events from the server as they are available
+-long live client connection
+-Sink, continiously listen to events being published. Instead of manually trying to retrieve them by calling an endpoint (/getAllMovies)
+This refreshes automatically and you get the events, events are being pushed by the server to the client
+Otherwise you have to manually call /getAllMovies multiple times to get the new movies that are being added by another endpoint (/addMovie)
